@@ -1,24 +1,63 @@
-loop through each input
-populate 2d array based on dist left and dist top (value currently in field of array ++
-count fields with value of more than 2
+file = open("Day 3 puzzle input.txt","r")
+#file = open("Day 3 puzzle input test data.txt","r")
 
-import blahbblahblah
-squares = [[0 for i in range(1000)] for i in range(1000)]
+input = file.readlines()
+output = 0
+printxaxis = 0
+printyaxis = 0
+printxlength = 0
+printylength = 0
+Squares = {}
+for test in range(1000):
+    for test2 in range(1000):
+        Squares[test,test2] = 0
 
-#dictionary method
-Matrix = {}
-Matrix[1,2] = 15
-print Matrix[1,2]
 
+def getxstart( str ):
+    xstart = str.split("@ ")
+    xstart = xstart[1].split(",")
+    xstart = xstart[0]
+    return int(xstart)
+
+def getystart( str ):
+    ystart = str.split("@ ")
+    ystart = ystart[1].split(",")
+    ystart = ystart[1].split(": ")
+    ystart = ystart[0]
+    return int(ystart)
+
+def getxlength( str ):
+    xlength = str.split("@ ")
+    xlength = xlength[1].split(",")
+    xlength = xlength[1].split(": ")
+    xlength = xlength[1].split("x")
+    xlength = xlength[0]
+    return int(xlength)
+
+def getylength( str ):
+    ylength = str.split("@ ")
+    ylength = ylength[1].split(",")
+    ylength = ylength[1].split(": ")
+    ylength = ylength[1].split("x")
+    ylength = ylength[1]
+    return int(ylength)
 
 for claim in input:
-    **lookup how to format strings and take everything after '@ '
-	row = before comma
-	column = after comma
-	rowlength = after : before x
-	colheight = after x
-	for rowcount = row to row+rowlength
-	    for colcount = column to cloumn+colheight
-			matrix[row,column] += 1
-			
-matrix.count(cellval>0)
+    printxaxis = getxstart(claim)
+    printyaxis = getystart(claim)
+    printxlength = getxlength(claim)
+    printylength = getylength(claim)
+    for x in range(printxlength):
+        xcoord = x+printxaxis
+        for y in range(printylength):
+            ycoord = y+printyaxis
+            Squares[xcoord,ycoord] += 1
+
+for xfinal in range(1000):
+    for yfinal in range(1000):
+        if Squares[xfinal,yfinal] >1:
+            output += 1
+
+
+
+print(output)

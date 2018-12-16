@@ -15,9 +15,10 @@ currentsquares = 0
 xloop = 0
 yloop = 0
 gridx = []
-ignoredclaims = []
+popgrid = []
 withinrange = []
 totalclaims = 0
+referencedclaims = []
 
 def getx( str ):
     #used to get both co-ord and claimid as I formatted that the same way
@@ -55,25 +56,10 @@ for x in range(gridwidth):
 for line in puzzlein:
     currentx = int(getx(line))
     currenty = gety(line)
+    claimid += 1
     for x in range(gridwidth):
         for y in range(gridheight):
-            #positive x, positive y
-            if currentx+x < gridwidth:
-                if currenty+y < gridheight:
-                    grid[currentx+x, currenty+y] += getdist(currentx+x, currenty+y, currentx, currenty)
-            #positive x, negative y
-            if currentx+x < gridwidth:
-                if currenty-y >= 0 and currenty-y < gridheight:
-                    grid[currentx+x, currenty-y] += getdist(currentx+x, currenty-y, currentx, currenty)
-            #negative x, positive y
-            if currentx-x >= 0 and currentx-x < gridwidth:
-                if currenty+y < gridheight:
-                    grid[currentx-x, currenty+y] += getdist(currentx-x, currenty+y, currentx, currenty)
-            #negative x, negative y
-            if currentx-x >= 0 and currentx-x < gridwidth:
-                if currenty-y >= 0 and currenty-y < gridheight:
-                   grid[currentx-x, currenty-y] += getdist(currentx-x, currenty-y, currentx, currenty)
-
+            grid[x, y] += getdist(x, y, currentx, currenty)
 
 #getting answer
 for x in range(gridwidth):
